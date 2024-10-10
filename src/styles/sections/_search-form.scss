@@ -9,7 +9,8 @@
   appearance: none;
   -webkit-appearance: none;
   width: 180px;
-  margin-left: 20px;
+  margin-left: 30px;
+
 
   @media (max-width: 767px) {
     width: 100%;
@@ -27,7 +28,12 @@
     box-shadow: 0 4px 8px rgb(0, 73, 147); 
   }
 }
-
+/* I add this part of the code to have more margin in the btn*/
+.input-group { 
+  input {
+    margin-right: 10px; 
+  }
+}
 .input-group {
   > .form-control {
     height: 70px;
@@ -90,6 +96,7 @@
   color: white;
   font-size: 16px;
   font-weight: 100;
+  margin-right: 10px;
 }
 
 .search-type-wrapper {
@@ -104,6 +111,7 @@
   color: #004A80;
   transition: background-color 0.3s; 
   
+  // Hover state
   &:hover {
     background-color: #f6bc25; 
     color: #004A80;
@@ -116,10 +124,28 @@
       transform: translateX(-50%); 
       border-left: 10px solid transparent;
       border-right: 10px solid transparent;
-      border-top: 10px solid  #f6bc25; 
+      border-top: 10px solid #f6bc25; 
+    }
+  }
+
+  // Active state for when clicked
+  &.active {
+    background-color: #f6bc25; 
+    color: #004A80;
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: -10px; 
+      left: 50%; 
+      transform: translateX(-50%); 
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-top: 10px solid #f6bc25; 
     }
   }
 }
+
 
 
 .email-type,

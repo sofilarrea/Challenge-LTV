@@ -54,31 +54,32 @@ function handleSearch(inputValue, selectedType) {
 
 // Initialize input validation
 function initInputValidation() {
-  const inputs = document.querySelectorAll('input[type="text"]');
-  inputs.forEach(input => {
-    input.addEventListener('keypress', function (event) {
-      const inputValue = input.value.trim();
-      const selectedType = document.getElementById('search-type').value;
+  const searchInput = document.getElementById('search-input');
 
-      // Validate input
-      if (event.key === 'Enter' && validateInput(inputValue, selectedType)) {
-        event.preventDefault();
-        localStorage.clear();
-        handleSearch(inputValue, selectedType);
-      }
-    });
+  // Listen for the Enter key
+  searchInput.addEventListener('keypress', function (event) {
+    const inputValue = searchInput.value.trim();
+    const selectedType = document.querySelector('.search-type.active').dataset.type;
+
+    // Validate input
+    if (event.key === 'Enter' && validateInput(inputValue, selectedType)) {
+      event.preventDefault();
+      localStorage.clear();
+      handleSearch(inputValue, selectedType);
+    }
   });
 }
 
 // Initialize search button functionality
 function initSearchButton() {
+  const searchInput = document.getElementById('search-input');
+
   document.querySelectorAll('.js-btn-search').forEach(button => {
     button.addEventListener('click', function (e) {
       e.preventDefault();
       localStorage.clear(); // Clears storage for the next request
-      const searchInput = document.getElementById('email-search-input');
       const inputValue = searchInput.value.trim();
-      const selectedType = document.getElementById('search-type').value;
+      const selectedType = document.querySelector('.search-type.active').dataset.type;
 
       // Validate input
       if (validateInput(inputValue, selectedType)) {
@@ -90,4 +91,35 @@ function initSearchButton() {
   });
 }
 
-export { initInputValidation, initSearchButton };
+// Initialize type selection
+function initTypeSelection() {
+  const emailType = document.getElementById('email-type');
+  const phoneType = document.getElementById('phone-type');
+
+  // Add click event listeners to type selections
+  emailType.addEventListener('click', handleClick);
+  phoneType.addEventListener('click', handleClick);
+
+  function handleClick(event) {
+    // Remove active class from all
+    document.querySelectorAll('.search-type').forEach(t => t.classList.remove('active'));
+    // Add active class to the clicked type
+    event.currentTarget.classList.add('active');
+    
+    // Update placeholder based on the selected type
+    const searchInput = document.getElementById('search-input');
+    searchInput.placeholder = event.currentTarget.dataset.type === 'email' 
+      ? 'Enter Email Address' 
+      : 'Enter Phone Number';
+  }
+}
+
+// Export the initialization functions
+export { initInputValidation, initSearchButton, initTypeSelection };
+
+// Initialize all functions on DOMContentLoaded
+document.addEventListener('DOMContentLoaded', function () {
+  initInputValidation();
+  initSearchButton();
+  initTypeSelection();
+});
