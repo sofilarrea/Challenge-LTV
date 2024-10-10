@@ -9,9 +9,16 @@ import { initInputValidation, initSearchButton } from './js/form-validation';
 })();
 
 
+// Function to show loading screen
+function showLoadingScreen() {
+  document.querySelector('.loading-screen').style.display = 'flex'; // Show loading screen
+}
 
-document.getElementById('loading-screen').style.display = 'flex';
+// Function to hide loading screen
+function hideLoadingScreen() {
+  document.querySelector('.loading-screen').style.display = 'none'; // Hide loading screen
+}
 
-window.onload = function() {
-  document.getElementById('loading-screen').style.display = 'none';
-};
+showLoadingScreen();
+
+setTimeout(hideLoadingScreen, 1000); 
