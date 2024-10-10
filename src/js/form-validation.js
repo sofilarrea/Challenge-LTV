@@ -5,6 +5,7 @@ function showResultsSection() {
   const searchAgainSection = document.getElementById('search-again');
   const featuresSection = document.getElementById('features');
   const resultsSection = document.getElementById('results');
+  const emailInput = document.getElementById('email-search-input'); // Ensure this matches your HTML
 
   populateResultsData();
 
@@ -92,5 +93,3 @@ function initSearchButton() {
 }
 
 export { initInputValidation, initSearchButton };
-
-
