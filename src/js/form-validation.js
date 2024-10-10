@@ -19,11 +19,10 @@ function showResultsSection() {
 // Function to display error messages
 function displayErrorMessage(message) {
     const errorMsgElement = document.getElementById('error-msg');
-    const inputGroup = document.querySelector('.input-group'); // Select the input group
-
+    const inputGroup = document.querySelector('.input-group'); 
     errorMsgElement.textContent = message; 
-    errorMsgElement.style.display = 'block'; // Show error message
-    inputGroup.classList.add('error'); // Add error class to the input group
+    errorMsgElement.style.display = 'block'; 
+    inputGroup.classList.add('error'); 
 }
 
 // Function to hide error messages
@@ -72,7 +71,7 @@ function handleSearch(inputValue, selectedType) {
         })
         .catch(e => {
             console.error(e);
-            displayErrorMessage('An error occurred while fetching data. Please try again.'); // General error message
+            displayErrorMessage('An error occurred while fetching data. Please try again.'); 
         });
 }
 
@@ -94,7 +93,7 @@ function initInputValidation() {
             event.preventDefault();
             const errorMessage = selectedType === 'email' 
                 ? 'Please enter a valid email address.' 
-                : 'Please enter a valid phone number.'; // Provide specific error messages
+                : 'Please enter a valid phone number.'; 
             displayErrorMessage(errorMessage);
         }
     });
@@ -103,7 +102,7 @@ function initInputValidation() {
 // Initialize search button functionality
 function initSearchButton() {
     const searchInput = document.getElementById('search-input');
-    const button = searchInput.nextElementSibling; // Assuming the button is the next sibling
+    const button = searchInput.nextElementSibling; 
 
     button.addEventListener('click', function (e) {
         e.preventDefault(); 
@@ -118,7 +117,7 @@ function initSearchButton() {
         } else {
             const errorMessage = selectedType === 'email' 
                 ? 'Please enter a valid email address.' 
-                : 'Please enter a valid phone number.'; // Provide specific error messages
+                : 'Please enter a valid phone number.'; 
             displayErrorMessage(errorMessage);
         }
     });
@@ -179,7 +178,7 @@ function initInputValidationForContainer(containerId) {
 // Initialize search button functionality for the new container
 function initSearchButtonForContainer(containerId) {
   const searchInput = document.getElementById(`search-input-${containerId}`);
-  const button = searchInput.nextElementSibling; // Assuming the button is the next sibling
+  const button = searchInput.nextElementSibling; 
 
   button.addEventListener('click', function (e) {
       e.preventDefault(); 
@@ -227,7 +226,7 @@ function initSearchContainer(containerId) {
   initTypeSelectionForContainer(containerId);
 }
 
-// Update your DOMContentLoaded to initialize the new search container
+
 document.addEventListener('DOMContentLoaded', function () {
-  initSearchContainer('2'); // Pass the container ID you want to initialize
+  initSearchContainer('2'); 
 });
