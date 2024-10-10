@@ -86,9 +86,17 @@
 }
 @media (max-width: 425px){
   .input-group.error .error-msg {
-    bottom: -59px;
+    bottom: 57px;
+    width: 96%;
+  }
+  .search-title{
+    display: none;
+  }
+  .btn-form-submit{
+    margin: 34px 0 0 0;
   }
 }
+
 .search-container {
   margin: 20px 0;
 }
