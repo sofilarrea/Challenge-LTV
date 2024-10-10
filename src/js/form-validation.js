@@ -16,6 +16,18 @@ function showResultsSection() {
   resultsSection.classList.remove('d-none');
 }
 
+// Function to display error messages
+function displayErrorMessage(message) {
+  const errorMsgElement = document.getElementById('error-msg');
+  errorMsgElement.textContent = message; 
+}
+
+// Function to hide error messages
+function hideErrorMessage() {
+  const errorMsgElement = document.getElementById('error-msg');
+  errorMsgElement.style.display = 'none'; 
+}
+
 // Validate input based on selected type
 function validateInput(inputValue, selectedType) {
   let isValid = false;
@@ -48,7 +60,7 @@ function handleSearch(inputValue, selectedType) {
     })
     .catch(e => {
       console.error(e);
-      alert('An error occurred while fetching data. Please try again.');
+      displayErrorMessage('An error occurred while fetching data. Please try again.');
     });
 }
 
@@ -64,8 +76,12 @@ function initInputValidation() {
     // Validate input
     if (event.key === 'Enter' && validateInput(inputValue, selectedType)) {
       event.preventDefault();
+      hideErrorMessage(); 
       localStorage.clear();
       handleSearch(inputValue, selectedType);
+    } else if (event.key === 'Enter') {
+      event.preventDefault();
+      displayErrorMessage('Please enter a valid ' + selectedType + '.'); 
     }
   });
 }
@@ -77,21 +93,21 @@ function initSearchButton() {
   document.querySelectorAll('.js-btn-search').forEach(button => {
     button.addEventListener('click', function (e) {
       e.preventDefault();
-      localStorage.clear(); // Clears storage for the next request
+      localStorage.clear(); 
       const inputValue = searchInput.value.trim();
       const selectedType = document.querySelector('.search-type.active').dataset.type;
 
       // Validate input
       if (validateInput(inputValue, selectedType)) {
+        hideErrorMessage(); 
         handleSearch(inputValue, selectedType);
       } else {
-        alert('Please enter a valid ' + selectedType + '.');
+        displayErrorMessage('Please enter a valid ' + selectedType + '.'); 
       }
     });
   });
 }
 
-// Initialize type selection
 function initTypeSelection() {
   const emailType = document.getElementById('email-type');
   const phoneType = document.getElementById('phone-type');
@@ -123,3 +139,26 @@ document.addEventListener('DOMContentLoaded', function () {
   initSearchButton();
   initTypeSelection();
 });
+const searchInput = document.getElementById('search-input');
+const errorMsg = document.getElementById('error-msg');
+const inputGroup = searchInput.closest('.input-group'); 
+
+document.querySelector('.js-btn-search').addEventListener('click', function (e) {
+    e.preventDefault(); 
+    const value = searchInput.value.trim();
+
+    if (!isValidEmail(value)) { 
+        errorMsg.style.display = 'block'; 
+        inputGroup.classList.add('error'); 
+    } else {
+        errorMsg.style.display = 'none'; 
+        inputGroup.classList.remove('error'); 
+        
+    }
+});
+
+function isValidEmail(email) {
+    // Aquí puedes implementar la lógica de validación del correo electrónico
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(String(email).toLowerCase());
+}
