@@ -150,3 +150,84 @@ document.addEventListener('DOMContentLoaded', function () {
     initSearchButton();
     initTypeSelection();
 });
+// Initialize input validation for the new search container
+function initInputValidationForContainer(containerId) {
+  const searchInput = document.getElementById(`search-input-${containerId}`);
+  const errorMsgElement = document.getElementById(`error-msg-${containerId}`);
+  const inputGroup = document.querySelector(`.input-group`);
+
+  searchInput.addEventListener('keypress', function (event) {
+      const inputValue = searchInput.value.trim();
+      const selectedType = document.querySelector(`.search-type.active`).dataset.type;
+
+      // Validate input
+      if (event.key === 'Enter' && validateInput(inputValue, selectedType)) {
+          event.preventDefault();
+          hideErrorMessage(); 
+          localStorage.clear();
+          handleSearch(inputValue, selectedType);
+      } else if (event.key === 'Enter') {
+          event.preventDefault();
+          const errorMessage = selectedType === 'email' 
+              ? 'Please enter a valid email address.' 
+              : 'Please enter a valid phone number.';
+          displayErrorMessage(errorMessage);
+      }
+  });
+}
+
+// Initialize search button functionality for the new container
+function initSearchButtonForContainer(containerId) {
+  const searchInput = document.getElementById(`search-input-${containerId}`);
+  const button = searchInput.nextElementSibling; // Assuming the button is the next sibling
+
+  button.addEventListener('click', function (e) {
+      e.preventDefault(); 
+      localStorage.clear(); 
+      const inputValue = searchInput.value.trim();
+      const selectedType = document.querySelector(`.search-type.active`).dataset.type;
+
+      // Validate input
+      if (validateInput(inputValue, selectedType)) {
+          hideErrorMessage(); 
+          handleSearch(inputValue, selectedType);
+      } else {
+          const errorMessage = selectedType === 'email' 
+              ? 'Please enter a valid email address.' 
+              : 'Please enter a valid phone number.';
+          displayErrorMessage(errorMessage);
+      }
+  });
+}
+
+// Initialize type selection for the new container
+function initTypeSelectionForContainer(containerId) {
+  const emailType = document.getElementById(`email-type-${containerId}`);
+  const phoneType = document.getElementById(`phone-type-${containerId}`);
+
+  // Add click event listeners to type selections
+  emailType.addEventListener('click', handleClick);
+  phoneType.addEventListener('click', handleClick);
+
+  function handleClick(event) {
+      document.querySelectorAll(`.search-type`).forEach(t => t.classList.remove('active'));
+      event.currentTarget.classList.add('active');
+      
+      const searchInput = document.getElementById(`search-input-${containerId}`);
+      searchInput.placeholder = event.currentTarget.dataset.type === 'email' 
+          ? 'Enter Email Address' 
+          : 'Enter Phone Number';
+  }
+}
+
+// Main initialization function for the new search container
+function initSearchContainer(containerId) {
+  initInputValidationForContainer(containerId);
+  initSearchButtonForContainer(containerId);
+  initTypeSelectionForContainer(containerId);
+}
+
+// Update your DOMContentLoaded to initialize the new search container
+document.addEventListener('DOMContentLoaded', function () {
+  initSearchContainer('2'); // Pass the container ID you want to initialize
+});
