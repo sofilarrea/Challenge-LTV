@@ -6,3 +6,27 @@
   height: 33px;
   margin-left: 12px;
 } 
+@media (max-width: 320px) {
+  .container a img{
+    width: 50px;
+  }
+  .navbar-image-profile{  
+    margin-left: 0;
+    width: 18px;
+    
+  } 
+}
+
+
+
+@media (max-width: 425px) {
+  .container a img{
+    width: 100px;
+  }
+  .menu-icon img:nth-child(1){
+    width: 15px;
+  }
+  .menu-icon img:nth-child(2){
+    width: 21px;
+  }
+}

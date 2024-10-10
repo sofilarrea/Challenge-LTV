@@ -14,6 +14,7 @@
   @media (max-width: 767px) {
     width: 100%;
     margin: 12px 0 0 0;
+
   }
 
   &:hover,
@@ -82,3 +83,49 @@
     bottom: -59px;
   }
 }
+.search-container {
+  margin: 20px 0;
+}
+.search-title{
+  color: white;
+  font-size: 16px;
+  font-weight: 100;
+}
+
+.search-type-wrapper {
+  display: flex;
+}
+
+.search-type {
+  position: relative; 
+  padding: 2px;
+  margin-right: 10px;
+  border-radius: 5px;
+  color: #004A80;
+  transition: background-color 0.3s; 
+  
+  &:hover {
+    background-color: #f6bc25; 
+    color: #004A80;
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: -10px; 
+      left: 50%; 
+      transform: translateX(-50%); 
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-top: 10px solid  #f6bc25; 
+    }
+  }
+}
+
+
+.email-type,
+.phone-type {
+  border: 2px solid #f6bc25;
+  color: #f6bc25;
+  font-size: small;
+}
+
